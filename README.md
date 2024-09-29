@@ -7,6 +7,7 @@ My personal playground for React coding and learning.
 - [React](#label-React)
 - [JSX](#label-JSX)
 - [Props](#label-Props)
+- [React event object](#label-react-event-object)
 <br><br>
 
 ## :label: React
@@ -35,3 +36,12 @@ My personal playground for React coding and learning.
 - Every parent component can pass some information to its child components by giving them props. 
 - Props might remind you of HTML attributes, but you can pass any JavaScript value through them, including objects, arrays, and functions.
 <br><br>
+
+## :label: React event object 
+- Your event handlers will receive a React event object. It is also sometimes known as a “synthetic event”.
+```jsx jsx
+<button onClick={e => {
+  console.log(e) // React event object
+}} />
+```
+<br>
