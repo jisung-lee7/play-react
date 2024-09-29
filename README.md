@@ -11,6 +11,7 @@ My personal playground for React coding and learning.
 - [Re-rendering conditions](#label-re-rendering-conditions)
 - [React Hooks](#label-react-hooks)
    - [useState](#useState)
+   - [useRef](#useRef)
 <br><br>
 
 ## :label: React
@@ -169,4 +170,20 @@ const [state, setState] = useState(initialState)
 - useState returns an array with exactly two values:
    1. The current state. During the first render, it will match the initialState you have passed.
    2. The set function that lets you update the state to a different value and trigger a re-render.
+<br><br>
+
+### useRef
+- useRef is a React Hook that lets you reference a value that’s not needed for rendering.
+```jsx jsx
+const ref = useRef(initialValue)
+```
+<br>
+
+#### Parameters
+- initialValue: The value you want the ref object’s current property to be initially. It can be a value of any type. This argument is ignored after the initial render.
+
+#### Returns
+- useRef returns an object with a single property:
+   - current: Initially, it’s set to the initialValue you have passed. You can later set it to something else. If you pass the ref object to React as a ref attribute to a JSX node, React will set its current property.
+   - On the next renders, useRef will return the same object.
 <br><br>
