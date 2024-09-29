@@ -12,6 +12,7 @@ My personal playground for React coding and learning.
 - [React Hooks](#label-react-hooks)
    - [useState](#useState)
    - [useRef](#useRef)
+   - [useEffect](#useEffect)
 <br><br>
 
 ## :label: React
@@ -187,3 +188,142 @@ const ref = useRef(initialValue)
    - current: Initially, it’s set to the initialValue you have passed. You can later set it to something else. If you pass the ref object to React as a ref attribute to a JSX node, React will set its current property.
    - On the next renders, useRef will return the same object.
 <br><br>
+
+### useEffect
+- useEffect is a React Hook that lets you synchronize a component with an external system.
+```jsx jsx
+useEffect(setup, dependencies?)
+```
+<br>
+
+#### Parameters
+- setup
+   - The function with your Effect’s logic. 
+   - Your setup function may also optionally return a cleanup function.
+   - When your component is added to the DOM, React will run your setup function. 
+   - After every re-render with changed dependencies, React will *first run the cleanup function (if you provided it) with the old values*, and then run your setup function with the new values. 
+   - *After your component is removed from the DOM, React will run your cleanup function.*
+<br><br>
+
+- optional dependencies
+   - The list of all reactive values referenced inside of the setup code. 
+   - Reactive values include props, state, and all the variables and functions declared directly inside your component body. 
+   - If your linter is configured for React, it will verify that every reactive value is correctly specified as a dependency. 
+   - The list of dependencies must have a constant number of items and be written inline like [dep1, dep2, dep3]. 
+   - React will compare each dependency with its previous value using the Object.is comparison. 
+   - If you omit this argument, your Effect will re-run after every re-render of the component.
+<br><br>
+
+- Lifecycle
+   1. Mount: When the component is added to the DOM
+   ```jsx jsx
+   const App = () => {
+     // API call on Mount
+     useEffect(() => {
+       console.log('Component mounted.')
+       // Do something like call API..
+     }, []) // Empty array ensures this runs only once(on mount)
+   
+     return <div>Hello, World!</div>
+   }
+   ```
+   <br>
+
+   2. Update: When the component re-renders
+   ```jsx jsx
+   const App = () => {
+     const isMount = useRef(false)
+     const [count, setCount] = useState(0)
+   
+     useEffect(() => {
+       if (!isMount.current) {
+         isMount.current = true
+         return
+       }
+       console.log(`Count has changed: ${count}`)
+     }) // Runs only when update
+   
+     // useEffect(() => {
+     //   if (!isMount.current) {
+     //     isMount.current = true
+     //     return
+     //   }
+     //   console.log(`Count has changed: ${count}`)
+     // }, [count]) // Runs only when your selected state(count) changes
+   
+     return (
+       <div>
+         <p>Count: {count}</p>
+         <button onClick={() => setCount(count + 1)}>Increment</button>
+       </div>
+     )
+   }
+   ```
+   <br>
+
+   3. Unmount: When the component is removed from the DOM
+      - *After your component is removed from the DOM, React will run your cleanup function.*
+      ```jsx jsx
+      // Viewer.jsx
+      const Viewer = ({ toggle }) => {
+        useEffect(() => {
+          console.log('Component mount.')
+      
+          return () => {
+            console.log('Component unmount.')
+          }
+        }, [toggle])
+        return (
+          <>
+            <h1>{String(toggle)}</h1>
+          </>
+        )
+      }
+
+      // App.jsx
+      const App = () => {
+        const [toggle, setToggle] = useState(false)
+        const handleToToggle = () => {
+          setToggle((prev) => !prev)
+        }
+        return (
+          <>
+            <div>
+              <button onClick={handleToToggle}>Toggle</button>
+            </div>
+            {toggle ? <Viewer toggle={toggle} /> : null}
+          </>
+        )
+      }
+      ```
+      <br>
+
+      - After every re-render with changed dependencies, React will *first run the cleanup function (if you provided it) with the old values*, and then run your setup function with the new values. 
+      ```jsx jsx
+      const App = () => {
+        const [toggle, setToggle] = useState(false)
+        const handleToToggle = () => {
+          setToggle((prev) => !prev)
+        }
+      
+        useEffect(() => {
+          console.log('Component mounted.')
+      
+          return () => {
+            console.log('Run cleanup function')
+          }
+        }, [toggle])
+      
+        return (
+          <>
+            <h1>{String(toggle)}</h1>
+            <div>
+              <button onClick={handleToToggle}>Toggle</button>
+            </div>
+          </>
+        )
+      }
+      ```
+      <br>
+
+
