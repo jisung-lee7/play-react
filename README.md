@@ -8,6 +8,7 @@ My personal playground for React coding and learning.
 - [JSX](#label-JSX)
 - [Props](#label-Props)
 - [React event object](#label-react-event-object)
+- [Re-rendering conditions](#label-re-rendering-conditions)
 <br><br>
 
 ## :label: React
@@ -45,3 +46,105 @@ My personal playground for React coding and learning.
 }} />
 ```
 <br>
+
+## :label: Re-rendering conditions
+1. When the component's state changes
+   - A React component re-renders whenever its internal state changes.
+   - For example, calling setState (or useState in functional components) triggers a re-render.
+   ```jsx jsx
+   const [count, setCount] = useState(0)
+   
+   const handleClick = () => {
+     setCount(count + 1)  // State changes, causing re-render
+   }
+   ```
+   <br>
+2. When props change
+   - A component will re-render if the props it receives from a parent component change.
+   - Whenever the parent component re-renders and passes new props, the child component will also re-render.
+   ```jsx jsx
+   const ParentComponent = () => {
+     const [value, setValue] = useState(0)
+   
+     return <ChildComponent count={value} />
+   }
+   
+   const ChildComponent = ({ count }) => {
+     // The Child component re-renders whenever the 'count' prop changes
+     return <div>{count}</div>
+   }
+   ```
+   <br>
+3. When the parent component re-renders
+   - If a parent component re-renders, all of its child components will also re-render by default.
+   - Any changes in the parent’s state or props will trigger a re-render for the children.
+   ```jsx jsx
+   const ParentComponent = () => {
+     const [count, setCount] = useState(0)
+   
+     const handleClick = () => {
+       setCount(count + 1)  // Parent state changes, triggering re-render
+     }
+   
+     return (
+       <div>
+         <h1>Parent Component</h1>
+         <p>Count: {count}</p>
+         <button onClick={handleClick}>Increment Count</button>
+         <ChildComponent />
+       </div>
+     )
+   }
+   
+   const ChildComponent = () => {
+     console.log('Child component re-rendered')
+     return <div>Child Component</div>
+   }
+   ```
+   <br>
+4. When useContext values change
+   - If a component subscribes to a context using the useContext hook, it will re-render whenever the context’s value changes.
+   ```jsx jsx
+   const ThemeContext = React.createContext('dark')
+   
+   const App = () => {
+     const [theme, setTheme] = useState('dark')
+     return (
+       <ThemeContext.Provider value={theme}>
+         <ThemedComponent />
+       </ThemeContext.Provider>
+     )
+   }
+   
+   const ThemedComponent = () => {
+     const theme = useContext(ThemeContext)  // Re-renders when the context value changes
+     return <div>{theme}</div>
+   }
+   ```
+   <br>
+5. When forceUpdate is called
+   - In class components, you can force a re-render by calling the forceUpdate method.
+   ```jsx jsx
+   class MyComponent extends React.Component {
+     forceRender = () => {
+       this.forceUpdate()  // Force a re-render
+     }
+   }
+   ```
+   <br>
+6. When React.memo is used and props change
+   - React.memo prevents a functional component from re-rendering if its props remain the same.
+   - If props change, the component will still re-render.
+   ```jsx jsx
+   const MemoizedComponent = React.memo(({ value }) => {
+     return <div>{value}</div>
+   })
+   ```
+   <br>
+7. When the key changes
+   - When rendering lists, React uses the key prop to track elements. If the key of an item changes, React treats it as a new component and will re-render it.
+   ```jsx jsx
+   const items = [1, 2, 3]
+   return items.map(item => <ChildComponent key={item} />)
+   ```
+   <br>
