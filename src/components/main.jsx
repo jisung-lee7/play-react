@@ -1,9 +1,9 @@
-import SimpleCounter from './simple-counter/simple-counter/simple-counter'
+import TodoList from './todo-list/todo-list/todo-list'
 
 const Main = () => {
   return (
     <div>
-      <SimpleCounter />
+      <TodoList />
     </div>
   )
 }
