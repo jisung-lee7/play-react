@@ -9,6 +9,8 @@ My personal playground for React coding and learning.
 - [Props](#label-Props)
 - [React event object](#label-react-event-object)
 - [Re-rendering conditions](#label-re-rendering-conditions)
+- [React Hooks](#label-react-hooks)
+   - [useState](#useState)
 <br><br>
 
 ## :label: React
@@ -148,3 +150,23 @@ My personal playground for React coding and learning.
    return items.map(item => <ChildComponent key={item} />)
    ```
    <br>
+
+## :label: React Hooks
+### useState
+- useState is a React Hook that lets you add a state variable to your component.
+```jsx jsx
+const [state, setState] = useState(initialState)
+```
+<br>
+
+#### Parameters
+- initialState: The value you want the state to be initially. It can be a value of any type, but there is a special behavior for functions. This argument is ignored after the initial render.
+   - If you pass a function as initialState, it will be treated as an initializer function. 
+   - It should be pure, should take no arguments, and should return a value of any type. 
+   - React will call your initializer function when initializing the component, and store its return value as the initial state. 
+
+#### Returns
+- useState returns an array with exactly two values:
+   1. The current state. During the first render, it will match the initialState you have passed.
+   2. The set function that lets you update the state to a different value and trigger a re-render.
+<br><br>
