@@ -22,7 +22,9 @@ const TodoList = () => {
     <div className="todo-list">
       <Header />
       <Editor handleToSetTodos={handleToSetTodos} />
-      <List />
+      <List
+        todos={todos}
+      />
     </div>
   )
 }
