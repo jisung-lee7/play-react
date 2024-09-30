@@ -5,10 +5,15 @@ const TodoItem = ({
   content,
   date,
   isChecked,
-  handleToToggleChecked
+  handleToToggleChecked,
+  handleToDelete
 }) => {
   const handleToChangeCheckbox = () => {
     handleToToggleChecked(id)
+  }
+
+  const handleToDeleteButtonClick = () => {
+    handleToDelete(id)
   }
   return (
     <div className="todo-item">
@@ -20,10 +25,7 @@ const TodoItem = ({
       />
       <div className="content">{content}</div>
       <div className="date">{new Date(date).toLocaleDateString()}</div>
-      <button
-      >
-        Delete
-      </button>
+      <button onClick={handleToDeleteButtonClick}>Delete</button>
     </div>
   )
 }

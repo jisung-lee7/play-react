@@ -26,11 +26,21 @@ const TodoList = () => {
     })
   }
 
+  const handleToDelete = (id) => {
+    setTodos((prevTodo) => {
+      return prevTodo.filter((todo) => todo.id !== id)
+    })
+  }
+
   return (
     <div className="todo-list">
       <Header />
       <Editor handleToSetTodos={handleToSetTodos} />
-      <List todos={todos} handleToToggleChecked={handleToToggleChecked} />
+      <List
+        todos={todos}
+        handleToToggleChecked={handleToToggleChecked}
+        handleToDelete={handleToDelete}
+      />
     </div>
   )
 }

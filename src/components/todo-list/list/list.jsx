@@ -2,7 +2,7 @@ import { useState } from 'react'
 import TodoItem from '../todo-item/todo-item'
 import './list.css'
 
-const List = ({ todos, handleToToggleChecked }) => {
+const List = ({ todos, handleToToggleChecked, handleToDelete }) => {
   const [search, setSearch] = useState('')
   const handleToSearch = (e) => {
     setSearch(e.target.value)
@@ -34,6 +34,7 @@ const List = ({ todos, handleToToggleChecked }) => {
               key={todo.id}
               {...todo}
               handleToToggleChecked={handleToToggleChecked}
+              handleToDelete={handleToDelete}
             />
           )
         })}
