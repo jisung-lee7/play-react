@@ -2,7 +2,7 @@ import { useState } from 'react'
 import TodoItem from '../todo-item/todo-item'
 import './list.css'
 
-const List = ({ todos }) => {
+const List = ({ todos, handleToToggleChecked }) => {
   const [search, setSearch] = useState('')
   const handleToSearch = (e) => {
     setSearch(e.target.value)
@@ -29,7 +29,13 @@ const List = ({ todos }) => {
       />
       <div className="todos-wrapper">
         {filteredTodos.map((todo) => {
-          return <TodoItem key={todo.id} {...todo} />
+          return (
+            <TodoItem
+              key={todo.id}
+              {...todo}
+              handleToToggleChecked={handleToToggleChecked}
+            />
+          )
         })}
       </div>
     </div>

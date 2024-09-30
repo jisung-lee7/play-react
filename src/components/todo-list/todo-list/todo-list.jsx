@@ -18,13 +18,19 @@ const TodoList = () => {
     setTodos([newTodo, ...todos])
   }
 
+  const handleToToggleChecked = (id) => {
+    setTodos((prevTodo) => {
+      return prevTodo.map((todo) =>
+        todo.id === id ? { ...todo, isChecked: !todo.isChecked } : todo
+      )
+    })
+  }
+
   return (
     <div className="todo-list">
       <Header />
       <Editor handleToSetTodos={handleToSetTodos} />
-      <List
-        todos={todos}
-      />
+      <List todos={todos} handleToToggleChecked={handleToToggleChecked} />
     </div>
   )
 }
