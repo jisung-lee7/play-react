@@ -13,6 +13,8 @@ My personal playground for React coding and learning.
    - [useState](#useState)
    - [useRef](#useRef)
    - [useEffect](#useEffect)
+   - [useReducer](#useReducer)
+   - [useMemo](#useMemo)
 <br><br>
 
 ## :label: React
@@ -326,4 +328,26 @@ useEffect(setup, dependencies?)
       ```
       <br>
 
+### useReducer
+- useReducer is a React Hook that lets you add a reducer to your component.
+
+```jsx jsx
+const [state, dispatch] = useReducer(reducer, initialArg, init?)
+```
+<br>
+
+#### Parameters
+- reducer
+   - The reducer function that specifies how the state gets updated. 
+   - It must be pure, should take the state and action as arguments, and should return the next state. 
+   - State and action can be of any types.
+- initialArg 
+   - The value from which the initial state is calculated. 
+   - It can be a value of any type. 
+   - How the initial state is calculated from it depends on the next init argument.
+- optional init
+   - The initializer function that should return the initial state. 
+   - If it’s not specified, the initial state is set to initialArg. 
+   - Otherwise, the initial state is set to the result of calling init(initialArg).
+<br><br>
 
