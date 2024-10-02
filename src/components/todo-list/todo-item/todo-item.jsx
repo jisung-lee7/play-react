@@ -1,9 +1,10 @@
 import { memo, useContext } from 'react'
-import { TodoContext } from '../todo-list/todo-list'
+import { TodoDispatchContext } from '../todo-list/todo-list'
 import './todo-item.css'
 
 const TodoItem = ({ id, content, date, isChecked }) => {
-  const { handleToToggleChecked, handleToDelete } = useContext(TodoContext)
+  const { handleToToggleChecked, handleToDelete } =
+    useContext(TodoDispatchContext)
   const handleToChangeCheckbox = () => {
     handleToToggleChecked(id)
   }

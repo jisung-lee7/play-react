@@ -1,4 +1,4 @@
-import { createContext, useCallback, useReducer, useRef } from 'react'
+import { createContext, useCallback, useMemo, useReducer, useRef } from 'react'
 import Editor from '../editor/editor'
 import Header from '../header/header'
 import List from '../list/list'
@@ -21,7 +21,8 @@ function reducer(state, action) {
   }
 }
 
-export const TodoContext = createContext()
+export const TodoStateContext = createContext()
+export const TodoDispatchContext = createContext()
 
 const TodoList = () => {
   const [todos, dispatch] = useReducer(reducer, [])
@@ -52,20 +53,19 @@ const TodoList = () => {
     })
   }, [])
 
+  const memoizedDispatch = useMemo(() => {
+    return { handleToSetTodos, handleToToggleChecked, handleToDelete }
+  }, [])
+
   return (
     <div className="todo-list">
       <Header />
-      <TodoContext.Provider
-        value={{
-          todos,
-          handleToSetTodos,
-          handleToToggleChecked,
-          handleToDelete
-        }}
-      >
-        <Editor />
-        <List />
-      </TodoContext.Provider>
+      <TodoStateContext.Provider value={todos}>
+        <TodoDispatchContext.Provider value={memoizedDispatch}>
+          <Editor />
+          <List />
+        </TodoDispatchContext.Provider>
+      </TodoStateContext.Provider>
     </div>
   )
 }
