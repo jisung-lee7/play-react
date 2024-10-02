@@ -15,6 +15,9 @@ My personal playground for React coding and learning.
    - [useEffect](#useEffect)
    - [useReducer](#useReducer)
    - [useMemo](#useMemo)
+   - [useCallback](#useCallback)
+- [React APIs](#label-react-apis)
+   - [memo](#memo)
 <br><br>
 
 ## :label: React
@@ -351,3 +354,36 @@ const [state, dispatch] = useReducer(reducer, initialArg, init?)
    - Otherwise, the initial state is set to the result of calling init(initialArg).
 <br><br>
 
+### useMemo
+- useMemo is a React Hook that lets you cache the result of a calculation between re-renders.
+
+```jsx jsx
+const cachedValue = useMemo(calculateValue, dependencies)
+```
+<br>
+
+In progress...
+<br><br>
+
+### useCallback
+- useCallback is a React Hook that lets you cache a function definition between re-renders.
+
+```jsx jsx
+const cachedFn = useCallback(fn, dependencies)
+```
+<br>
+
+In progress..
+<br><br>
+
+## :label: React APIs
+### memo
+- memo lets you skip re-rendering a component when its props are unchanged.
+
+```jsx jsx
+const MemoizedComponent = memo(SomeComponent, arePropsEqual?)
+```
+<br>
+
+In progress..
+<br><br>
