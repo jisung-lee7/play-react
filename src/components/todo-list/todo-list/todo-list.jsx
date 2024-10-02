@@ -1,4 +1,4 @@
-import { useCallback, useReducer, useRef } from 'react'
+import { createContext, useCallback, useReducer, useRef } from 'react'
 import Editor from '../editor/editor'
 import Header from '../header/header'
 import List from '../list/list'
@@ -20,6 +20,8 @@ function reducer(state, action) {
       return state
   }
 }
+
+export const TodoContext = createContext()
 
 const TodoList = () => {
   const [todos, dispatch] = useReducer(reducer, [])
@@ -53,12 +55,17 @@ const TodoList = () => {
   return (
     <div className="todo-list">
       <Header />
-      <Editor handleToSetTodos={handleToSetTodos} />
-      <List
-        todos={todos}
-        handleToToggleChecked={handleToToggleChecked}
-        handleToDelete={handleToDelete}
-      />
+      <TodoContext.Provider
+        value={{
+          todos,
+          handleToSetTodos,
+          handleToToggleChecked,
+          handleToDelete
+        }}
+      >
+        <Editor />
+        <List />
+      </TodoContext.Provider>
     </div>
   )
 }

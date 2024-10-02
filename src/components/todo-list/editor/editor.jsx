@@ -1,7 +1,9 @@
-import { useRef, useState } from 'react'
+import { useContext, useRef, useState } from 'react'
+import { TodoContext } from '../todo-list/todo-list'
 import './editor.css'
 
-const Editor = ({ handleToSetTodos }) => {
+const Editor = () => {
+  const { handleToSetTodos } = useContext(TodoContext)
   const [content, setContent] = useState('')
   const contentRef = useRef()
   const handleToSetTodo = (e) => {

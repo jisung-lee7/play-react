@@ -1,8 +1,10 @@
-import { useMemo, useState } from 'react'
+import { useContext, useMemo, useState } from 'react'
 import TodoItem from '../todo-item/todo-item'
+import { TodoContext } from '../todo-list/todo-list'
 import './list.css'
 
-const List = ({ todos, handleToToggleChecked, handleToDelete }) => {
+const List = () => {
+  const { todos } = useContext(TodoContext)
   const [search, setSearch] = useState('')
   const handleToSearch = (e) => {
     setSearch(e.target.value)
@@ -58,14 +60,7 @@ const List = ({ todos, handleToToggleChecked, handleToDelete }) => {
       />
       <div className="todos-wrapper">
         {filteredTodos.map((todo) => {
-          return (
-            <TodoItem
-              key={todo.id}
-              {...todo}
-              handleToToggleChecked={handleToToggleChecked}
-              handleToDelete={handleToDelete}
-            />
-          )
+          return <TodoItem key={todo.id} {...todo} />
         })}
       </div>
     </div>

@@ -1,14 +1,9 @@
-import { memo } from 'react'
+import { memo, useContext } from 'react'
+import { TodoContext } from '../todo-list/todo-list'
 import './todo-item.css'
 
-const TodoItem = ({
-  id,
-  content,
-  date,
-  isChecked,
-  handleToToggleChecked,
-  handleToDelete
-}) => {
+const TodoItem = ({ id, content, date, isChecked }) => {
+  const { handleToToggleChecked, handleToDelete } = useContext(TodoContext)
   const handleToChangeCheckbox = () => {
     handleToToggleChecked(id)
   }
