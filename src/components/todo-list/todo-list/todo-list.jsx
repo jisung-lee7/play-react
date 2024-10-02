@@ -1,34 +1,52 @@
-import { useRef, useState } from 'react'
+import { useReducer, useRef } from 'react'
 import Editor from '../editor/editor'
 import Header from '../header/header'
 import List from '../list/list'
 import './todo-list.css'
 
+function reducer(state, action) {
+  switch (action.type) {
+    case 'CREATE':
+      return [action.payload, ...state]
+    case 'UPDATE':
+      return state.map((todo) =>
+        todo.id === action.payload
+          ? { ...todo, isChecked: !todo.isChecked }
+          : todo
+      )
+    case 'DELETE':
+      return state.filter((todo) => todo.id !== action.payload)
+    default:
+      return state
+  }
+}
+
 const TodoList = () => {
-  const [todos, setTodos] = useState([])
+  const [todos, dispatch] = useReducer(reducer, [])
   const idRef = useRef(0)
   const handleToSetTodos = (content) => {
-    const newTodo = {
-      id: idRef.current++,
-      content: content,
-      date: new Date().getTime(),
-      isChecked: false
-    }
-
-    setTodos([newTodo, ...todos])
+    dispatch({
+      type: 'CREATE',
+      payload: {
+        id: idRef.current++,
+        content: content,
+        date: new Date().getTime(),
+        isChecked: false
+      }
+    })
   }
 
   const handleToToggleChecked = (id) => {
-    setTodos((prevTodo) => {
-      return prevTodo.map((todo) =>
-        todo.id === id ? { ...todo, isChecked: !todo.isChecked } : todo
-      )
+    dispatch({
+      type: 'UPDATE',
+      payload: id
     })
   }
 
   const handleToDelete = (id) => {
-    setTodos((prevTodo) => {
-      return prevTodo.filter((todo) => todo.id !== id)
+    dispatch({
+      type: 'DELETE',
+      payload: id
     })
   }
 
