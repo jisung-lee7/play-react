@@ -16,8 +16,10 @@ My personal playground for React coding and learning.
    - [useReducer](#useReducer)
    - [useMemo](#useMemo)
    - [useCallback](#useCallback)
+   - [useContext](#useContext)
 - [React APIs](#label-react-apis)
    - [memo](#memo)
+   - [createContext](#createContext)
 <br><br>
 
 ## :label: React
@@ -376,12 +378,34 @@ const cachedFn = useCallback(fn, dependencies)
 In progress..
 <br><br>
 
+### useContext
+- useContext is a React Hook that lets you read and subscribe to context from your component.
+
+```jsx jsx
+const value = useContext(SomeContext)
+```
+<br>
+
+In progress..
+<br><br>
+
 ## :label: React APIs
 ### memo
 - memo lets you skip re-rendering a component when its props are unchanged.
 
 ```jsx jsx
 const MemoizedComponent = memo(SomeComponent, arePropsEqual?)
+```
+<br>
+
+In progress..
+<br><br>
+
+### createContext
+- createContext lets you create a context that components can provide or read.
+
+```jsx jsx
+const SomeContext = createContext(defaultValue)
 ```
 <br>
 
