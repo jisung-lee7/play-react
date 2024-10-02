@@ -31,19 +31,4 @@ const TodoItem = ({
   )
 }
 
-export default memo(TodoItem, (prevProps, nextProps) => {
-  if (prevProps.id !== nextProps.id) {
-    return false
-  }
-  if (prevProps.isChecked !== nextProps.isChecked) {
-    return false
-  }
-  if (prevProps.content !== nextProps.content) {
-    return false
-  }
-  if (prevProps.date !== nextProps.date) {
-    return false
-  }
-
-  return true
-})
+export default memo(TodoItem)

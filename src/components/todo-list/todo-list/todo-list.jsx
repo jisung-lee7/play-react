@@ -1,4 +1,4 @@
-import { useReducer, useRef } from 'react'
+import { useCallback, useReducer, useRef } from 'react'
 import Editor from '../editor/editor'
 import Header from '../header/header'
 import List from '../list/list'
@@ -24,7 +24,7 @@ function reducer(state, action) {
 const TodoList = () => {
   const [todos, dispatch] = useReducer(reducer, [])
   const idRef = useRef(0)
-  const handleToSetTodos = (content) => {
+  const handleToSetTodos = useCallback((content) => {
     dispatch({
       type: 'CREATE',
       payload: {
@@ -34,21 +34,21 @@ const TodoList = () => {
         isChecked: false
       }
     })
-  }
+  }, [])
 
-  const handleToToggleChecked = (id) => {
+  const handleToToggleChecked = useCallback((id) => {
     dispatch({
       type: 'UPDATE',
       payload: id
     })
-  }
+  }, [])
 
-  const handleToDelete = (id) => {
+  const handleToDelete = useCallback((id) => {
     dispatch({
       type: 'DELETE',
       payload: id
     })
-  }
+  }, [])
 
   return (
     <div className="todo-list">
