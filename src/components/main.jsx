@@ -1,9 +1,9 @@
-import TodoList from './todo-list/todo-list/todo-list'
+import EmotionalDiary from './emotional-diary/emotional-diary/emotional-diary'
 
 const Main = () => {
   return (
     <div>
-      <TodoList />
+      <EmotionalDiary />
     </div>
   )
 }
