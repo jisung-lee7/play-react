@@ -4,7 +4,6 @@ import TodoItem from '../todo-item/todo-item'
 import './list.css'
 
 const List = () => {
-  // const todos = useContext(TodoStateContext)
   const todos = useTodo()
   const [search, setSearch] = useState('')
   const handleToSearch = (e) => {

@@ -3,7 +3,7 @@ import { createContext, useContext, useReducer, useRef } from 'react'
 const TodoStateContext = createContext()
 const TodoDispatchContext = createContext()
 
-function reducer(state, action) {
+function todoReducer(state, action) {
   switch (action.type) {
     case 'CREATE':
       return [action.payload, ...state]
@@ -24,7 +24,7 @@ function reducer(state, action) {
 }
 
 export const TodoProvider = ({ children }) => {
-  const [todos, dispatch] = useReducer(reducer, [])
+  const [todos, dispatch] = useReducer(todoReducer, [])
   const idRef = useRef(0)
   return (
     <TodoStateContext.Provider value={todos}>

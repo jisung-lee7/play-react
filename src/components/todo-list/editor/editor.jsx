@@ -3,7 +3,6 @@ import { useUpdateTodo } from '../contexts/todo-provider'
 import './editor.css'
 
 const Editor = () => {
-  // const { handleToSetTodos } = useContext(TodoDispatchContext)
   const { handleToSetTodos } = useUpdateTodo()
   const [content, setContent] = useState('')
   const contentRef = useRef()

@@ -3,8 +3,6 @@ import { useUpdateTodo } from '../contexts/todo-provider'
 import './todo-item.css'
 
 const TodoItem = ({ id, content, date, isChecked }) => {
-  // const { handleToToggleChecked, handleToDelete } =
-  //   useContext(TodoDispatchContext)
   const { handleToToggleChecked, handleToDelete } = useUpdateTodo()
   const handleToChangeCheckbox = () => {
     handleToToggleChecked(id)
