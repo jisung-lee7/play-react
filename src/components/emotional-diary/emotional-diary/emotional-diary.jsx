@@ -45,8 +45,8 @@ const diaryReducer = (state, action) => {
   }
 }
 
-const DiaryStateContext = createContext()
-const DiaryDispatchContext = createContext()
+export const DiaryStateContext = createContext()
+export const DiaryDispatchContext = createContext()
 
 const EmotionalDiary = () => {
   const [diarys, dispatch] = useReducer(diaryReducer, mockData)
