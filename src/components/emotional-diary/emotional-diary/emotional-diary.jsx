@@ -5,20 +5,25 @@ import Notfound from '../pages/notfound'
 import Edit from '../pages/edit'
 import { Route, Routes } from 'react-router-dom'
 import { createContext, useReducer, useRef } from 'react'
-import Button from '../elements/button/button'
 
 const mockData = [
   {
     id: 1,
-    createdDate: new Date().getTime(),
-    emotionId: 'good',
+    createdDate: new Date('2024-10-09').getTime(),
+    emotionId: 1,
     content: '1 diary'
   },
   {
     id: 2,
-    createdDate: new Date().getTime(),
-    emotionId: 'soso',
+    createdDate: new Date('2024-10-08').getTime(),
+    emotionId: 2,
     content: '2 diary'
+  },
+  {
+    id: 3,
+    createdDate: new Date('2024-09-07').getTime(),
+    emotionId: 3,
+    content: '3 diary'
   }
 ]
 
@@ -45,7 +50,7 @@ const DiaryDispatchContext = createContext()
 
 const EmotionalDiary = () => {
   const [diarys, dispatch] = useReducer(diaryReducer, mockData)
-  const idRef = useRef(3)
+  const idRef = useRef(4)
 
   const handleToCreate = (createdDate, emotionId, content) => {
     dispatch({
@@ -80,24 +85,6 @@ const EmotionalDiary = () => {
 
   return (
     <>
-      <Button
-        text={'CREATE'}
-        onClick={() => {
-          handleToCreate(new Date().getTime(), 1, 'Hello')
-        }}
-      />
-      <Button
-        text={'EDIT'}
-        onClick={() => {
-          handleToEdit(0, new Date().getTime(), 7, 'BYEBYE')
-        }}
-      />
-      <Button
-        text={'DELETE'}
-        onClick={() => {
-          handleToDelete(1)
-        }}
-      />
       <DiaryStateContext.Provider value={diarys}>
         <DiaryDispatchContext.Provider
           value={{ handleToCreate, handleToEdit, handleToDelete }}
