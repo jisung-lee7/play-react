@@ -2,6 +2,7 @@
   margin: 0 px;
   width: 100%;
   background-color: rgb(246, 246, 246);
+  display: flex;
 }
 
 .root {
