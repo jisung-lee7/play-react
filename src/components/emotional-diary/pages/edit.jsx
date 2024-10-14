@@ -1,19 +1,17 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import useDiary from '../hooks/useDiary'
 import Editor from '../editor/editor'
 import Button from '../elements/button/button'
 import Header from '../elements/header/header'
-import {
-  DiaryDispatchContext,
-  DiaryStateContext
-} from '../emotional-diary/emotional-diary'
+import { DiaryDispatchContext } from '../emotional-diary/emotional-diary'
 
 const Edit = () => {
-  const [currentDiaryItem, setCurrentDiaryItem] = useState()
   const params = useParams()
-  const diarys = useContext(DiaryStateContext)
   const { handleToEdit, handleToDelete } = useContext(DiaryDispatchContext)
   const navigate = useNavigate()
+  const currentDiaryItem = useDiary(params.id)
+
   const handleToBack = () => {
     navigate(-1)
   }
@@ -40,19 +38,6 @@ const Edit = () => {
       navigate('/', { replace: true })
     }
   }
-
-  useEffect(() => {
-    const currentDiaryItem = diarys.find(
-      (diary) => String(diary.id) === String(params.id)
-    )
-
-    if (!currentDiaryItem) {
-      window.alert('Invalid access.')
-      navigate('/', { replace: true })
-    }
-
-    setCurrentDiaryItem(currentDiaryItem)
-  }, [params.id, diarys])
 
   return (
     <div>
