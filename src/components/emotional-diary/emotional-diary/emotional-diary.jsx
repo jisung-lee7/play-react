@@ -4,53 +4,75 @@ import New from '../pages/new'
 import Notfound from '../pages/notfound'
 import Edit from '../pages/edit'
 import { Route, Routes } from 'react-router-dom'
-import { createContext, useReducer, useRef } from 'react'
-
-const mockData = [
-  {
-    id: 1,
-    createdDate: new Date('2024-10-09').getTime(),
-    emotionId: 1,
-    content: '1 diary'
-  },
-  {
-    id: 2,
-    createdDate: new Date('2024-10-08').getTime(),
-    emotionId: 2,
-    content: '2 diary'
-  },
-  {
-    id: 3,
-    createdDate: new Date('2024-09-07').getTime(),
-    emotionId: 3,
-    content: '3 diary'
-  }
-]
+import { createContext, useEffect, useReducer, useRef, useState } from 'react'
 
 const diaryReducer = (state, action) => {
-  switch (action.type) {
-    case 'CREATE':
-      return [action.payload, ...state]
-    case 'EDIT':
-      return state.map((prev) => {
-        return String(prev.id) === String(action.payload.id)
-          ? action.payload
-          : prev
-      })
-    case 'DELETE':
-      return state.filter((prev) => String(prev.id) !== String(action.payload))
+  let nextState
 
+  switch (action.type) {
+    case 'INIT':
+      return action.payload
+    case 'CREATE': {
+      nextState = [action.payload, ...state]
+      break
+    }
+    case 'EDIT': {
+      nextState = state.map((prev) =>
+        String(prev.id) === String(action.payload.id) ? action.payload : prev
+      )
+      break
+    }
+    case 'DELETE': {
+      nextState = state.filter(
+        (prev) => String(prev.id) !== String(action.payload)
+      )
+      break
+    }
     default:
       return state
   }
+
+  localStorage.setItem('diarys', JSON.stringify(nextState))
+
+  return nextState
 }
 
 export const DiaryStateContext = createContext()
 export const DiaryDispatchContext = createContext()
 
 const EmotionalDiary = () => {
-  const [diarys, dispatch] = useReducer(diaryReducer, mockData)
-  const idRef = useRef(4)
+  const [isLoading, setIsLoading] = useState(true)
+  const [diarys, dispatch] = useReducer(diaryReducer, [])
+  const idRef = useRef(0)
+
+  useEffect(() => {
+    const storedDiarys = localStorage.getItem('diarys')
+    if (!storedDiarys) {
+      setIsLoading(false)
+      return
+    }
+
+    const parsedDiarys = JSON.parse(storedDiarys)
+    if (!Array.isArray(parsedDiarys)) {
+      setIsLoading(false)
+      return
+    }
+
+    let maxId = 0
+    parsedDiarys.forEach((diary) => {
+      if (Number(diary.id) > maxId) {
+        maxId = Number(diary.id)
+      }
+    })
+
+    idRef.current = maxId + 1
+
+    dispatch({
+      type: 'INIT',
+      payload: parsedDiarys
+    })
+    setIsLoading(false)
+  }, [])
 
   const handleToCreate = (createdDate, emotionId, content) => {
     dispatch({
@@ -81,6 +103,10 @@ const EmotionalDiary = () => {
       type: 'DELETE',
       payload: id
     })
+  }
+
+  if (isLoading) {
+    return <div>Loading data...</div>
   }
 
   return (
