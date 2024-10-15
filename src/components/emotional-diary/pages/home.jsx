@@ -3,6 +3,7 @@ import Button from '../elements/button/button'
 import { useContext, useState } from 'react'
 import { DiaryStateContext } from '../emotional-diary/emotional-diary'
 import DiaryList from '../diary-list/diary-list'
+import usePageTitle from '../hooks/usePageTitle'
 
 const getMonthlyDiary = (pivotDate, diarys) => {
   const beginTime = new Date(
@@ -31,6 +32,7 @@ const Home = () => {
   const diarys = useContext(DiaryStateContext)
   const [pivotDate, setPivotDate] = useState(new Date())
   const filteredDiarys = getMonthlyDiary(pivotDate, diarys)
+  usePageTitle('Emotional diary')
   const handleToDecreaseMonth = () => {
     setPivotDate(new Date(pivotDate.getFullYear(), pivotDate.getMonth() - 1))
   }

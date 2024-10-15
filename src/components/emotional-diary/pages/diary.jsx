@@ -4,12 +4,13 @@ import { getStringedDate } from '../../../utils/get-stringed-date'
 import Button from '../elements/button/button'
 import Header from '../elements/header/header'
 import Viewer from '../viewer/viewer'
+import usePageTitle from '../hooks/usePageTitle'
 
 const Diary = () => {
   const params = useParams()
   const navigate = useNavigate()
-
   const currentDiaryItem = useDiary(params.id)
+  usePageTitle(`${params.id}'s diary`)
 
   if (!currentDiaryItem) {
     return <div>Loading data...</div>

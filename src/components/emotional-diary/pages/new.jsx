@@ -1,9 +1,10 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Editor from '../editor/editor'
 import Button from '../elements/button/button'
 import Header from '../elements/header/header'
 import { DiaryDispatchContext } from '../emotional-diary/emotional-diary'
+import usePageTitle from '../hooks/usePageTitle'
 
 const New = () => {
   const { handleToCreate } = useContext(DiaryDispatchContext)
@@ -16,6 +17,8 @@ const New = () => {
     handleToCreate(input.createdDate.getTime(), input.emotionId, input.content)
     navigate('/', { replace: true })
   }
+
+  usePageTitle('Create new diary')
 
   return (
     <div>
