@@ -1,3 +1,4 @@
+import './emotional-diary.css'
 import Diary from '../pages/diary'
 import Home from '../pages/home'
 import New from '../pages/new'
@@ -111,19 +112,23 @@ const EmotionalDiary = () => {
 
   return (
     <>
-      <DiaryStateContext.Provider value={diarys}>
-        <DiaryDispatchContext.Provider
-          value={{ handleToCreate, handleToEdit, handleToDelete }}
-        >
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/new" element={<New />} />
-            <Route path="/diary/:id" element={<Diary />} />
-            <Route path="/edit/:id" element={<Edit />} />
-            <Route path="*" element={<Notfound />} />
-          </Routes>
-        </DiaryDispatchContext.Provider>
-      </DiaryStateContext.Provider>
+      <div className="emotional-diary">
+        <div className="root">
+          <DiaryStateContext.Provider value={diarys}>
+            <DiaryDispatchContext.Provider
+              value={{ handleToCreate, handleToEdit, handleToDelete }}
+            >
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/new" element={<New />} />
+                <Route path="/diary/:id" element={<Diary />} />
+                <Route path="/edit/:id" element={<Edit />} />
+                <Route path="*" element={<Notfound />} />
+              </Routes>
+            </DiaryDispatchContext.Provider>
+          </DiaryStateContext.Provider>
+        </div>
+      </div>
     </>
   )
 }
