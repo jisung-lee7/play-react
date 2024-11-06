@@ -409,5 +409,20 @@ const SomeContext = createContext(defaultValue)
 ```
 <br>
 
-In progress..
+#### Parameters
+- defaultValue: 
+   - The value that you want the context to have when there is no matching context provider in the tree above the component that reads context. 
+   - If you don’t have any meaningful default value, specify null. 
+   - The default value is meant as a “last resort” fallback. 
+   - It is static and never changes over time.
+<br><br>
+
+#### Returns
+- createContext returns a context object.
+- The context object itself does not hold any information. 
+- It represents which context other components read or provide. 
+- Typically, you will use SomeContext.Provider in components above to specify the context value, and call useContext(SomeContext) in components below to read it. 
+- The context object has a few properties:
+   - SomeContext.Provider lets you provide the context value to components.
+   - SomeContext.Consumer is an alternative and rarely used way to read the context value.
 <br><br>
